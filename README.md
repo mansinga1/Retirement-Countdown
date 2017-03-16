@@ -1,5 +1,5 @@
-#Retirement Countdown
-##An Amazon Alexa Skill to track the time left until retirement built with ASK, AWS, and Node.js
+# Retirement Countdown
+## An Amazon Alexa Skill to track the time left until retirement built with ASK, AWS, and Node.js
 
 ![RetirementCountdown](src/RetirementCountdownSm.png)
 
@@ -9,7 +9,7 @@ Tech-savvy members of the workforce may not have a whiteboard with the number of
 
 A very special acknowledgement to [Valerie Dodge](https://github.com/valoriedodge) for the [Pregnancy Countdown Alexa skill](https://github.com/valoriedodge/Pregnancy-Countdown), on which this skill is based.
 
-#License
+# License
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
