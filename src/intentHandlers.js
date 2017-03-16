@@ -2,29 +2,13 @@
 var textHelper = require('./textHelper'),
     storage = require('./storage');
 var express = require('express');
-var request = require('request');
 
 var app = express();
-
-var GA_TRACKING_ID = 'UA-83204288-1';
 
 var registerIntentHandlers = function (intentHandlers, skillContext) {
     intentHandlers.AddRetirementDateIntent = function (intent, session, response) {
         //add retirement date for user
         var retirementDate = intent.slots.retirementDate.value;
-
-
-        trackEvent(
-          'Intent',
-          'AddRetirementDateIntent',
-          'na',
-          '100', // Event value must be numeric.
-          function(err) {
-            if (err) {
-                var speechOutput = err;
-                response.tell(speechOutput);
-            }
-          });
         storage.loadInfo(session, function (currentRetirement) {
             var speechOutput = '',
                 reprompt = textHelper.nextHelp;
@@ -61,17 +45,6 @@ var registerIntentHandlers = function (intentHandlers, skillContext) {
             response.ask('If you would like to change your last day of work, please say: change my retirement date to: followed by your new retirement date. ', 'Please say your retirement date again');
             return;
         }
-        trackEvent(
-          'Intent',
-          'ChangeRetirementDateIntent',
-          'na',
-          '100', // Event value must be numeric.
-          function(err) {
-            if (err) {
-                var speechOutput = err;
-                response.tell(speechOutput);
-            }
-          });
         storage.loadInfo(session, function (currentRetirement) {
             var speechOutput = '',
               reprompt = textHelper.nextHelp;
@@ -96,17 +69,6 @@ var registerIntentHandlers = function (intentHandlers, skillContext) {
                 response.ask('You have not set a retirement date. When is your last day of work?', "What is your last day of work?");
                 return;
             }
-            trackEvent(
-              'Intent',
-              'GiveCountDownIntent',
-              'na',
-              '100', // Event value must be numeric.
-              function(err) {
-                if (err) {
-                    var speechOutput = err;
-                    response.tell(speechOutput);
-                }
-              });
             var currentRetirementDate = new Date(currentRetirement.data.retirementDate[0]);
             var todayDate = new Date();
             if (!interval) {
@@ -170,17 +132,6 @@ var registerIntentHandlers = function (intentHandlers, skillContext) {
                 response.ask('You have not set a retirement date. When is your last day of work?', 'When is your last day of work?');
                 return;
             }
-            trackEvent(
-              'Intent',
-              'RetirementDateIntent',
-              'na',
-              '100', // Event value must be numeric.
-              function(err) {
-                if (err) {
-                    var speechOutput = err;
-                    response.tell(speechOutput);
-                }
-              });
             var currentRetirementDate = currentRetirement.data.retirementDate[0];
             speechOutput += 'You are retiring on ' + currentRetirementDate;
             cardOutput += 'You are retiring on ' + currentRetirementDate;
@@ -193,17 +144,6 @@ var registerIntentHandlers = function (intentHandlers, skillContext) {
     intentHandlers.RetiredIntent = function (intent, session, response) {
         //remove retirement date
         storage.newRetirement(session).save(function () {
-            trackEvent(
-              'Intent',
-              'RetiredIntent',
-              'na',
-              '100', // Event value must be numeric.
-              function(err) {
-                if (err) {
-                    var speechOutput = err;
-                    response.tell(speechOutput);
-                }
-              });
             response.tell('Congratulations! I hope you enjoy many years of blissful retirement.');
         });
     };
@@ -269,36 +209,6 @@ function getCountdownStatus(date1,date2,interval) {
         case "days"   : return Math.floor(timediff / day);
         default: return undefined;
     }
-}
-
-
-
-function trackEvent(category, action, label, value, callback) {
-  var data = {
-    v: '1', // API Version.
-    tid: GA_TRACKING_ID, // Tracking ID / Property ID.
-    // Anonymous Client Identifier. Ideally, this should be a UUID that
-    // is associated with particular user, device, or browser instance.
-    cid: '555',
-    t: 'event', // Event hit type.
-    ec: category, // Event category.
-    ea: action, // Event action.
-    el: label, // Event label.
-    ev: value, // Event value.
-  };
-
-  request.post(
-    'http://www.google-analytics.com/collect', {
-      form: data
-    },
-    function(err, response) {
-      if (err) { return callback(err); }
-      if (response.statusCode !== 200) {
-        return callback(new Error('Tracking failed'));
-      }
-      callback();
-    }
-  );
 }
 
 exports.register = registerIntentHandlers;

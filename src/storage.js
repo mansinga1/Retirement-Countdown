@@ -34,7 +34,7 @@ var storage = (function () {
             //so next time we can save a read from dynamoDB
             this._session.attributes.currentRetirement = this.data;
             dynamodb.putItem({
-                TableName: 'RetirementCountdownUserData',
+                TableName: 'RetirementDates',
                 Item: {
                     CustomerId: {
                         S: this._session.user.userId
@@ -62,7 +62,7 @@ var storage = (function () {
                 return;
             }
             dynamodb.getItem({
-                TableName: 'RetirementCountdownUserData',
+                TableName: 'RetirementDates',
                 Key: {
                     CustomerId: {
                         S: session.user.userId

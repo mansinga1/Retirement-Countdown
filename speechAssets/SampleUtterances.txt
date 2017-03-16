@@ -6,8 +6,18 @@ AddRetirementDateIntent add my retirement date {RetirementDate}
 AddRetirementDateIntent add my retirement {RetirementDate}
 AddRetirementDateIntent add my last day {RetirementDate}
 AddRetirementDateIntent add my last day of work {RetirementDate}
+AddRetirementDateIntent set my retirement date to {RetirementDate}
+AddRetirementDateIntent set my retirement to {RetirementDate}
+AddRetirementDateIntent set my last day to {RetirementDate}
+AddRetirementDateIntent set my last day of work to {RetirementDate}
+AddRetirementDateIntent set my retirement date as {RetirementDate}
+AddRetirementDateIntent set my retirement as {RetirementDate}
+AddRetirementDateIntent set my last day as {RetirementDate}
+AddRetirementDateIntent set my last day of work as {RetirementDate}
 AddRetirementDateIntent I am retiring {RetirementDate}
 AddRetirementDateIntent I'm retiring {RetirementDate}
+AddRetirementDateIntent I am retiring on {RetirementDate}
+AddRetirementDateIntent I'm retiring on {RetirementDate}
 AddRetirementDateIntent I am going to retire {RetirementDate}
 AddRetirementDateIntent I'm going to retire {RetirementDate}
 AddRetirementDateIntent add my retirement {RetirementDate}
