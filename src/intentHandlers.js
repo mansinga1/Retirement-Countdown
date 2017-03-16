@@ -186,8 +186,8 @@ function retirementDateIsValid(date) {
     var currentDate = new Date();
     var proposedDate = new Date(date);
     var days = "days";
-    var checkDate = getCountdownStatus(currentDate, proposedDate, days) + 5;
-    if (!checkDate || isNaN(checkDate) || checkDate < 0 || checkDate > 285) {
+    var checkDate = getCountdownStatus(currentDate, proposedDate, days);
+    if (!checkDate || isNaN(checkDate)) {
       return false;
     }  else {
       return true;
