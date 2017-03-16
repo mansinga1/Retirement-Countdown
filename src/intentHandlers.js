@@ -1,9 +1,6 @@
 'use strict';
 var textHelper = require('./textHelper'),
     storage = require('./storage');
-var express = require('express');
-
-var app = express();
 
 var registerIntentHandlers = function (intentHandlers, skillContext) {
     intentHandlers.AddRetirementDateIntent = function (intent, session, response) {
