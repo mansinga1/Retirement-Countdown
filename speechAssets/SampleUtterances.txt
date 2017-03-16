@@ -62,6 +62,7 @@ ChangeRetirementDateIntent {NewRetirementDate} is my new retirement date
 ChangeRetirementDateIntent {NewRetirementDate} is my new last day of work
 ChangeRetirementDateIntent {NewRetirementDate} is my new last day
 ChangeRetirementDateIntent change my retirement to {NewRetirementDate}
+ChangeRetirementDateIntent change my retirement date to {NewRetirementDate}
 ChangeRetirementDateIntent change my last day of work to {NewRetirementDate}
 ChangeRetirementDateIntent change my last day to {NewRetirementDate}
 
