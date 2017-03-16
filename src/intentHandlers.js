@@ -8,7 +8,7 @@ var app = express();
 var registerIntentHandlers = function (intentHandlers, skillContext) {
     intentHandlers.AddRetirementDateIntent = function (intent, session, response) {
         //add retirement date for user
-        var retirementDate = intent.slots.retirementDate.value;
+        var retirementDate = intent.slots.RetirementDate.value;
         storage.loadInfo(session, function (currentRetirement) {
             var speechOutput = '',
                 reprompt = textHelper.nextHelp;
