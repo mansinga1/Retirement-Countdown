@@ -17,7 +17,7 @@ var registerIntentHandlers = function (intentHandlers, skillContext) {
                 if (skillContext.needMoreHelp) {
                     response.ask(speechOutput + ' What would you like to do?', 'What would you like to do?');
                 }
-                response.ask(speechOutput + ' What woud you like to do?', 'What would you like to do?');
+                response.ask(speechOutput + ' What would you like to do?', 'What would you like to do?');
                 return;
             }
             if (!retirementDate) {

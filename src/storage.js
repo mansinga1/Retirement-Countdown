@@ -36,7 +36,7 @@ var storage = (function () {
             dynamodb.putItem({
                 TableName: 'RetirementDates',
                 Item: {
-                    CustomerId: {
+                    userId: {
                         S: this._session.user.userId
                     },
                     Data: {
@@ -64,7 +64,7 @@ var storage = (function () {
             dynamodb.getItem({
                 TableName: 'RetirementDates',
                 Key: {
-                    CustomerId: {
+                    userId: {
                         S: session.user.userId
                     }
                 }
