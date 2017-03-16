@@ -1,11 +1,3 @@
-/**
-    Copyright 2016 Valorie Dodge. All Rights Reserved.
-
-    Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located
-
-    in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
-*/
-
 'use strict';
 var AWS = require("aws-sdk");
 
@@ -13,36 +5,36 @@ var storage = (function () {
     var dynamodb = new AWS.DynamoDB({apiVersion: '2012-08-10'});
 
     /*
-     * The Pregnancy class stores the pregnancy due date as a hash for the user
+     * The Retirement class stores the last day of work as a hash for the user
      */
-    function Pregnancy(session, data) {
+    function Retirement(session, data) {
         if (data) {
             this.data = data;
         } else {
             this.data = {
-                dueDate: []
+                retirementDate: []
             };
         }
         this._session = session;
     }
 
-    Pregnancy.prototype = {
-        isPregnant: function () {
+    Retirement.prototype = {
+        isRetiring: function () {
             //check if there is already data in the table
-            //it can be used as an indication of whether the user has already set a due date
-            var pregnant = false;
-            var pregnancyData = this.data;
-            if (pregnancyData.dueDate[0]) {
-              pregnant = true;
+            //it can be used as an indication of whether the user has already set a retirement date
+            var retiring = false;
+            var retirementData = this.data;
+            if (retirementData.retirementDate[0]) {
+              retiring = true;
             }
-            return pregnant;
+            return retiring;
         },
         save: function (callback) {
-            //save the pregnancy info in the session,
+            //save the retirement info in the session,
             //so next time we can save a read from dynamoDB
-            this._session.attributes.currentPregnancy = this.data;
+            this._session.attributes.currentRetirement = this.data;
             dynamodb.putItem({
-                TableName: 'PregnancyCountdownUserData',
+                TableName: 'RetirementCountdownUserData',
                 Item: {
                     CustomerId: {
                         S: this._session.user.userId
@@ -64,39 +56,39 @@ var storage = (function () {
 
     return {
         loadInfo: function (session, callback) {
-            if (session.attributes.currentPregnancy) {
-                console.log('get pregnancy info from session=' + session.attributes.currentPregnancy);
-                callback(new Pregnancy(session, session.attributes.currentPregnancy));
+            if (session.attributes.currentRetirement) {
+                console.log('get retirement info from session=' + session.attributes.currentRetirement);
+                callback(new Retirement(session, session.attributes.currentRetirement));
                 return;
             }
             dynamodb.getItem({
-                TableName: 'PregnancyCountdownUserData',
+                TableName: 'RetirementCountdownUserData',
                 Key: {
                     CustomerId: {
                         S: session.user.userId
                     }
                 }
             }, function (err, data) {
-                var currentPregnancy;
+                var currentRetirement;
                 if (err) {
                     console.log(err, err.stack);
-                    currentPregnancy = new Pregnancy(session);
-                    session.attributes.currentPregnancy = currentPregnancy.data;
-                    callback(currentPregnancy);
+                    currentRetirement = new Retirement(session);
+                    session.attributes.currentRetirement = currentRetirement.data;
+                    callback(currentRetirement);
                 } else if (data.Item === undefined) {
-                    currentPregnancy = new Pregnancy(session);
-                    session.attributes.currentPregnancy = currentPregnancy.data;
-                    callback(currentPregnancy);
+                    currentRetirement = new Retirement(session);
+                    session.attributes.currentRetirement = currentRetirement.data;
+                    callback(currentRetirement);
                 } else {
-                    console.log('get pregnancy info from dynamodb=' + data.Item.Data.S);
-                    currentPregnancy = new Pregnancy(session, JSON.parse(data.Item.Data.S));
-                    session.attributes.currentPregnancy = currentPregnancy.data;
-                    callback(currentPregnancy);
+                    console.log('get retirement info from dynamodb=' + data.Item.Data.S);
+                    currentRetirement = new Retirement(session, JSON.parse(data.Item.Data.S));
+                    session.attributes.currentRetirement = currentRetirement.data;
+                    callback(currentRetirement);
                 }
             });
         },
-        newPregnancy: function (session) {
-            return new Pregnancy(session);
+        newRetirement: function (session) {
+            return new Retirement(session);
         }
     };
 })();

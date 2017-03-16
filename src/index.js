@@ -7,10 +7,10 @@
 */
 
 'use strict';
-var PregnancyCountdown = require('./pregnancyCountdown');
+var RetirementCountdown = require('./retirementCountdown');
 
 
 exports.handler = function (event, context) {
-    var pregnancyCountdown = new PregnancyCountdown();
-    pregnancyCountdown.execute(event, context);
+    var retirementCountdown = new RetirementCountdown();
+    retirementCountdown.execute(event, context);
 };

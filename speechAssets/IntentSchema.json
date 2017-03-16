@@ -1,19 +1,19 @@
 {
   "intents": [
     {
-      "intent": "AddDueDateIntent",
+      "intent": "AddRetirementDateIntent",
       "slots": [
         {
-          "name": "DueDate",
+          "name": "RetirementDate",
           "type": "AMAZON.DATE"
         }
       ]
     },
     {
-      "intent": "ChangeDueDateIntent",
+      "intent": "ChangeRetirementDateIntent",
       "slots": [
         {
-          "name": "NewDueDate",
+          "name": "NewRetirementDate",
           "type": "AMAZON.DATE"
         }
       ]
@@ -28,19 +28,10 @@
       ]
     },
     {
-      "intent": "BabyDeliveredIntent"
+      "intent": "RetiredIntent"
     },
     {
-      "intent": "PregnancyTerminatedIntent"
-    },
-    {
-      "intent": "BabyDueDateIntent"
-    },
-    {
-      "intent": "HowFarIntent"
-    },
-    {
-      "intent": "SizeOfBabyIntent"
+      "intent": "RetirementIntent"
     },
     {
       "intent": "AMAZON.NoIntent"
