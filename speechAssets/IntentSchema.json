@@ -10,6 +10,15 @@
       ]
     },
     {
+      "intent": "AddRetirementDurationIntent",
+      "slots": [
+        {
+          "name": "RetirementDuration",
+          "type": "AMAZON.DURATION"
+        }
+      ]
+    },
+    {
       "intent": "ChangeRetirementDateIntent",
       "slots": [
         {

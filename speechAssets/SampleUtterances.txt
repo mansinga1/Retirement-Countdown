@@ -35,6 +35,31 @@ AddRetirementDateIntent {RetirementDate} is my last day of work
 AddRetirementDateIntent {RetirementDate} is my retirement
 AddRetirementDateIntent {RetirementDate} is my retirement day
 
+AddRetirementDurationIntent I am retiring in {RetirementDuration}
+AddRetirementDurationIntent I'm retiring in {RetirementDuration}
+AddRetirementDurationIntent I am going to retire in {RetirementDuration}
+AddRetirementDurationIntent I'm going to retire in {RetirementDuration}
+AddRetirementDurationIntent add my retirement in {RetirementDuration}
+AddRetirementDurationIntent my retirement is in {RetirementDuration}
+AddRetirementDurationIntent my last day is in {RetirementDuration}
+AddRetirementDurationIntent my last day of work is in {RetirementDuration}
+AddRetirementDurationIntent I am retiring {RetirementDuration} from now
+AddRetirementDurationIntent I'm retiring {RetirementDuration} from now
+AddRetirementDurationIntent I am going to retire {RetirementDuration} from now
+AddRetirementDurationIntent I'm going to retire {RetirementDuration} from now
+AddRetirementDurationIntent add my retirement {RetirementDuration} from now
+AddRetirementDurationIntent my retirement is {RetirementDuration} from now
+AddRetirementDurationIntent my last day is {RetirementDuration} from now
+AddRetirementDurationIntent my last day of work is {RetirementDuration} from now
+AddRetirementDurationIntent I am retiring {RetirementDuration} from today
+AddRetirementDurationIntent I'm retiring {RetirementDuration} from today
+AddRetirementDurationIntent I am going to retire {RetirementDuration} from today
+AddRetirementDurationIntent I'm going to retire {RetirementDuration} from today
+AddRetirementDurationIntent add my retirement {RetirementDuration} from today
+AddRetirementDurationIntent my retirement is {RetirementDuration} from today
+AddRetirementDurationIntent my last day is {RetirementDuration} from today
+AddRetirementDurationIntent my last day of work is {RetirementDuration} from today
+
 RetirementIntent when am I retiring
 RetirementIntent when am I done
 RetirementIntent when am I done with work

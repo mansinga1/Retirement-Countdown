@@ -35,6 +35,32 @@ var registerIntentHandlers = function (intentHandlers, skillContext) {
         });
     };
 
+    intentHandlers.AddRetirementDurationIntent = function (intent, session, response) {
+        //add retirement date for user, according to a spoken duration
+        var retirementDuration = intent.slots.RetirementDuration.value;
+        var retirementDate = null;
+        storage.loadInfo(session, function (currentRetirement) {
+            var speechOutput = '',
+                reprompt = textHelper.nextHelp;
+            if (currentRetirement.data.retirementDate[0]) {
+                speechOutput += 'I have your retirement date set as ' + currentRetirement.data.retirementDate[0] + '.';
+                if (skillContext.needMoreHelp) {
+                    response.ask(speechOutput + ' What would you like to do?', 'What would you like to do?');
+                }
+                response.ask(speechOutput + ' What would you like to do?', 'What would you like to do?');
+                return;
+            }
+            else {
+                retirementDate = todayPlusDuration(retirementDuration);
+                speechOutput += 'Congratulations! ' + retirementDate + ' has been set as your last day of work. ';
+                currentRetirement.data.retirementDate[0] = retirementDate;
+                currentRetirement.save(function () {
+                  response.ask(speechOutput + "What else would you like to do?", reprompt);
+                });
+            }
+        });
+    };
+
     intentHandlers.ChangeRetirementDateIntent = function (intent, session, response) {
         //change the retirement date.
         var newRetirementDate = intent.slots.NewRetirementDate.value;
@@ -82,6 +108,9 @@ var registerIntentHandlers = function (intentHandlers, skillContext) {
               if (interval == "months") {
                 speechOutput += 'Only one month until your last day of work!';
                 cardOutput += 'Only one month until your last day of work!';
+              } else if (interval == "years") {
+                speechOutput += 'Only one year until your last day of work!';
+                cardOutput += 'Only one year until your last day of work!';
               } else if (interval == "weeks") {
                 speechOutput += 'Only one week until your last day of work!';
                 cardOutput += 'Only one week until your last day of work!';
@@ -93,6 +122,9 @@ var registerIntentHandlers = function (intentHandlers, skillContext) {
               if (interval == "months") {
                 speechOutput += 'You are retiring this month!';
                 cardOutput += 'You are retiring this month!';
+              } else if (interval == "years") {
+                speechOutput += 'You are retiring this year!';
+                cardOutput += 'You are retiring this year!';
               } else if (interval == "weeks") {
                 speechOutput += 'You are retiring this week!';
                 cardOutput += 'You are retiring this week!';
@@ -104,6 +136,9 @@ var registerIntentHandlers = function (intentHandlers, skillContext) {
               if (interval == "weeks") {
                 speechOutput += 'You retired a week ago!';
                 cardOutput += 'You retired a week ago!';
+              } else if (interval == "years"){
+                speechOutput += 'You retired last year!';
+                cardOutput += 'You retired last year!';
               } else if (interval == "days"){
                 speechOutput += 'You retired yesterday!';
                 cardOutput += 'You retired yesterday!';
@@ -178,6 +213,21 @@ var registerIntentHandlers = function (intentHandlers, skillContext) {
         }
     };
 };
+
+function todayPlusDuration(duration) {
+  var iso8601DurationRegex = /(-)?P(?:([\.,\d]+)Y)?(?:([\.,\d]+)M)?(?:([\.,\d]+)W)?(?:([\.,\d]+)D)?/;
+  var matches = duration.match(iso8601DurationRegex);
+  var years = matches[2] === undefined ? 0 : matches[2];
+  var months = matches[3] === undefined ? 0 : matches[3];
+  var weeks = matches[4] === undefined ? 0 : matches[4];
+  var days = matches[5] === undefined ? 0 : matches[5];
+  var currentDate = new Date();
+  var year = currentDate.getFullYear();
+  var month = currentDate.getMonth();
+  var day = currentDate.getDate();
+  var newDate = new Date(year + parseInt(years), month + parseInt(months), day + (parseInt(weeks) * 7) + parseInt(days))
+  return newDate;
+}
 
 function retirementDateIsValid(date) {
     var currentDate = new Date();
